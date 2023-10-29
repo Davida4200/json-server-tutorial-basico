@@ -1,0 +1,29 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Jabón Rey",
+      "precio": 3000
+    },
+    {
+      "id": 2,
+      "nombre": "Chocorramo",
+      "precio": 2000
+    },
+    {
+      "id": 3,
+      "nombre": "Clorox",
+      "precio": 1600
+    },
+    {
+      "id": 4,
+      "nombre": "Brownie",
+      "precio": 2500
+    },
+    {
+      "id": 5,
+      "nombre": "Agua Cristal",
+      "precio": 2500
+    }
+  ]
+}
