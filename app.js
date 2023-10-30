@@ -4,7 +4,7 @@ const apiUrl = 'http://localhost:5555';
 
 //Método GET
 
-const obtenerProductos = async () => {
+const obtenerObjetos = async () => {
   try {
     const respuesta = await axios.get(`${apiUrl}/personajes/`);
     console.log('Lista de personajes:', respuesta.data)
@@ -13,7 +13,7 @@ const obtenerProductos = async () => {
   }
 }
 
-obtenerProductos();
+obtenerObjetos();
 
 const objeto1 = {
   "id": 5,
@@ -63,7 +63,7 @@ const actualizarObjeto = async (objeto) => {
 
 //Método DELETE
 
-const eliminarRecurso = async (id) => {
+const eliminarObjeto = async (id) => {
   try {
     const respuesta = await axios.delete(`${apiUrl}/personajes/${id}`);
     console.log('Recurso eliminado con éxito:', respuesta.data);
@@ -72,4 +72,4 @@ const eliminarRecurso = async (id) => {
   }
 }
 
-eliminarRecurso(4);
+eliminarObjeto(4);

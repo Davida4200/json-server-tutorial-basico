@@ -6,11 +6,17 @@ Este documento fue creado con fines educativos para explicar cómo hacer una api
 
 # Tabla de contenidos
 
-1. [Introducción](#introducción)
-   1. [Petición XHR](#petición-xhr)
-   2. [Petición Axios](#petición-axios)
-2. [Instalaciones necesarias](#instalaciones-necesarias)
-3. [Primeros pasos en Axios](#primeros-pasos-en-axios)
+1. [Instalaciones necesarias](#instalaciones-necesarias)
+2. [Primeros pasos - json-server](#primeros-pasos---json-server)
+   1. [Primer ejercicio](#primer-ejercicio)
+3. [Método GET](#método-get)
+4. [Método POST](#método-post)
+   1. [Segundo ejercicio](#segundo-ejercicio)
+   2. [Tercer ejercicio](#tercer-ejercicio)
+5. [Método PUT](#método-put)
+   1. [Cuarto ejercicio](#cuarto-ejercicio)
+   2. [Quinto ejercicio](#quinto-ejercicio)
+6. [Método DELETE](#método-delete)
 
 # Instalaciones necesarias
 
@@ -117,7 +123,7 @@ import axios from 'axios'
 
 const apiUrl = 'http://localhost:5555';
 
-const obtenerProductos = async () => {
+const obtenerObjetos = async () => {
   try {
     const respuesta = await axios.get(`${apiUrl}/productos/`);
     console.log('Lista de productos:', respuesta.data)
@@ -126,7 +132,7 @@ const obtenerProductos = async () => {
   }
 }
 
-obtenerProductos();
+obtenerObjetos();
 ```
 
 Después abrimos otra terminal aparte de la que estamos ejecutando, nos aseguramos de estar dentro de la carpeta **json-server**, y ejecutamos el archivo **app.js** con el siguiente comando:
@@ -162,13 +168,13 @@ Una vez hecho esto, volvemos a ejecutar **app.js** con node desde la terminal, y
 Ahora enviaremos un nuevo producto mediante POST, la estructura no es muy diferente del GET. Esta la estructura que usaremos:
 
 ``` javascript
-const nuevoProducto = {
+const objeto1 = {
   "id": 5,
   "nombre": "Agua cristal",
   "precio": 1200
 }
 
-const crearProducto = async (producto) => {
+const crearObjeto = async (producto) => {
   try {
     const respuesta = await axios.post(url, producto, header);
     console.log('Producto creado:', respuesta.data);
@@ -177,10 +183,10 @@ const crearProducto = async (producto) => {
   }
 }
 
-crearProducto(nuevoProducto);
+crearObjeto(objeto1);
 ```
 
-En este código, vemos que hay un parámetro producto en `crearProducto()`, este lo crearemos por fuera para enviarselo a la función. Luego, vemos que en la petición tenemos tres parámetros: **url**, **producto** y **header**. Conocemos la url y hablaremos de los otros. Producto hace referencia al elemento que enviaremos desde afuera como argumento a la función. Y finamente, header hace referencia a metadatos (datos sobre los datos) que nos permiten establecer una "configuración" de la petición.
+En este código, vemos que hay un parámetro producto en `crearObjeto()`, este lo crearemos por fuera para enviarselo a la función. Luego, vemos que en la petición tenemos tres parámetros: **url**, **producto** y **header**. Conocemos la url y hablaremos de los otros. Producto hace referencia al elemento que enviaremos desde afuera como argumento a la función. Y finamente, header hace referencia a metadatos (datos sobre los datos) que nos permiten establecer una "configuración" de la petición.
 
 Por otro lado, hay otra manera de hacer una petición y es de la siguiente manera:
 
@@ -200,13 +206,13 @@ Como podemos observar, tenemos un objeto que se divide en cuatro partes donde te
 El código implementado de esa manera se vería así:
 
 ``` javascript
-const nuevoProducto = {
+const objeto1 = {
   "id": 5,
   "nombre": "Agua Cristal",
   "precio": 1200
 }
 
-const crearProducto = async (producto) => {
+const crearObjeto = async (producto) => {
   try {
     const respuesta = await axios({
       method: 'post',
@@ -222,19 +228,19 @@ const crearProducto = async (producto) => {
   }
 }
 
-crearProducto(nuevoProducto);
+crearObjeto(objeto1);
 ```
 
 De igual manera, podemos seguir trabajando con la estructura anterior:
 
 ``` javascript
-const nuevoProducto = {
+const objeto1 = {
   "id": 5,
   "nombre": "Agua Cristal",
   "precio": 1200
 }
 
-const crearProducto = async (producto) => {
+const crearObjeto = async (producto) => {
   try {
     const respuesta = await axios.post(`${apiUrl}/productos`, producto, {
       headers: {
@@ -247,7 +253,7 @@ const crearProducto = async (producto) => {
   }
 }
 
-crearProducto(nuevoProducto);
+crearObjeto(objeto1);
 ```
 
 Ahora lo implementaremos, vamos a hacer un POST, la tarea es utilizar el segundo código y lo pondremos en **app.js**, debajo del código que hicimos antes.
@@ -339,7 +345,7 @@ Una vez ejecutamos y modificamos el registro de la BD, comentamos la línea que 
 Debajo del método PUT ponemos este código:
 
 ``` javascript
-const eliminarRecurso = async (id) => {
+const eliminarObjeto = async (id) => {
   try {
     const respuesta = await axios.delete(`${apiUrl}/recurso/${id}`);
     console.log('Recurso eliminado con éxito:', respuesta.data);
@@ -348,7 +354,7 @@ const eliminarRecurso = async (id) => {
   }
 }
 
-eliminarRecurso(4);
+eliminarObjeto(4);
 ```
 
 Verificamos el endpoint, y en la llamada de la función ponemos el objeto que queremos eliminar, recomiendo poner el id del ultimo elemento.
@@ -356,3 +362,7 @@ Verificamos el endpoint, y en la llamada de la función ponemos el objeto que qu
 Lo ejecutamos:
 
 ![Alt text](./images/delete.png)
+
+Hasta acá llega este taller básico de API REST con json-server y Axios, muchas gracias por llegar hasta acá :p.
+
+![imagen-gracias](https://animesher.com/orig/1/122/1224/12248/animesher.com_followers-thank-you-thanks-1224846.gif)
