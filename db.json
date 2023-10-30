@@ -25,5 +25,25 @@
       "nombre": "Agua Cristal",
       "precio": 2500
     }
+  ],
+  "personajes": [
+    {
+      "id": 1,
+      "nombre": "Rick",
+      "profesion": "Cientifico",
+      "genero": "Masculino"
+    },
+    {
+      "id": 2,
+      "nombre": "Morty",
+      "profesion": "Estudiante",
+      "genero": "Masculino"
+    },
+    {
+      "id": 3,
+      "nombre": "Jerry",
+      "profesion": "Desempleado",
+      "genero": "Masculino"
+    }
   ]
 }

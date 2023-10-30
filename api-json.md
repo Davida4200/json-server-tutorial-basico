@@ -17,7 +17,7 @@ Este documento fue creado con fines educativos para explicar cómo hacer una api
 1. [Node.js](https://nodejs.org/en/download)
 2. [JSON Viewer Pro](https://chrome.google.com/webstore/detail/json-viewer-pro/eifflpmocdbdmepbjaopkkhbfmdgijcc)
 
-# Primeros pasos
+# Primeros pasos - json-server
 
 Como ya tenemos instalado Node.js, crearemos una carpeta llamada **json-server** y será nuestro punto de partida.
 
@@ -108,6 +108,8 @@ Pulsamos la tecla **Enter** para acceder, y veremos que nos trae únicamente el 
 
 Podemos probar con los demas productos cambiando el número y veremos que nos retorna únicamente ese elemento.
 
+# Método GET
+
 Ahora, dentro de la carpeta **json-server** crearemos un archivo llamado **app.js**, y pondremos este código:
 
 ``` javascript
@@ -155,7 +157,9 @@ Una vez hecho esto, volvemos a ejecutar **app.js** con node desde la terminal, y
 
 ![Alt text](./images/get-productos.png)
 
-Ahora enviaremos un nuevo producto mediante POST, la estructura no es muy diferente del GET. Para iniciar, veremos la estructura que usaremos:
+# Método POST
+
+Ahora enviaremos un nuevo producto mediante POST, la estructura no es muy diferente del GET. Esta la estructura que usaremos:
 
 ``` javascript
 const nuevoProducto = {
@@ -258,11 +262,97 @@ Como podemos ver, el servidor nos responde con el mensaje de que se creó el pro
 
 Antes del segundo ejercicio, vamos a comentar la línea que ejecuta nuestro POST en **app.js**, debería quedar algo así:
 
-![Alt text](image-1.png)
+![Alt text](./images/comentar-post.png)
 
 ### Segundo ejercicio
 
-Ahora vamos a crear un nuevo recurso en nuestra base de datos, nos ubicamos en nuestro **db.json** y este nuevo recurso es de tema libre, es decir se pueden crear personas, peliculas, libros, personajes de una serie, etc.
+Ahora vamos a crear un nuevo recurso en nuestra base de datos, nos ubicamos en nuestro **db.json** y este nuevo recurso es de tema libre, es decir se pueden crear personas, peliculas, libros, personajes de una serie, etc. Crear 2 o 3 elementos en el nuevo recurso.
 
-Luego de haberlo creado, vamos a nuestro archivo **app.js** y la tarea es modificar la petición GET, vamos a acceder al nuevo recurso que se ha creado, el nombre es el mismo, por ejemplo si se creó como personajes,o personas la ruta será tal cual.
+Luego de haberlo creado, vamos a nuestro archivo **app.js** y la tarea es modificar la petición GET, vamos a acceder al nuevo recurso que se ha creado, el nombre es el mismo, por ejemplo si se creó como personajes,o personas la ruta será tal cual.  También modificar el `console.log` para que el mensaje coincida con el recurso.
 
+Ahora ejecutamos el archivo para que traiga el nuevo recurso con GET, en mi caso sale así:
+
+![Alt text](./images/get2.png)
+
+### Tercer ejercicio
+
+Habiendo hecho eso, crearemos un nuevo elemento, para ello vamos a modificar nuestro POST cambiando el endpoint (ruta) haciendo referencia a nuestro nuevo recurso.
+
+La tarea es analizar el código GET, y tomarlo como referencia para modificar el POST. También tenemos que modificar el objeto que enviamos.
+
+Ejecutamos el archivo para enviar el nuevo elemento:
+
+![Alt text](./images/post2-json.png)
+
+# Método PUT
+
+Ahora usaremos el método PUT para modificar un elemento en nuestra BD.
+
+Tenemos que volver a comentar la ejecución de nuestro POST, porque se estaría creando el mismo objeto de antes y generaría un error en nuestra consola.
+
+Ponemos este código en nuestro **app.js**:
+
+``` javascript
+const objeto2 = {
+    "id": 3,
+    "nombre": "Jerry",
+    "profesion": "Desempleado",
+    "genero": "Masculino"
+}
+
+const actualizarObjeto = async (objeto) => {
+  try {
+    const respuesta = await axios.put(`${apiUrl}/recurso/${objeto.id}`, objeto, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log('Producto actualizado:', respuesta.data);
+  } catch (error) {
+    console.error('Error al actualizar el producto:', error);
+  }
+}
+
+actualizarObjeto(objeto2);
+```
+
+### Cuarto ejercicio
+
+En este ejemplo, tengo un `objeto2`, hay que modificarlo para que coincida con un elemento existente dentro de la base de datos, o sea debe coinicidir con un **id** existente. También modificar el endpoint para acceder al recurso correcto.
+
+Ejecutamos el código:
+
+![Alt text](./images/put1.png)
+
+Como observamos, primero se ejecuta el GET y luego el PUT, ahora revisaremos nuestro **db.json**:
+
+![Alt text](./images/put1-bd.png)
+
+### Quinto ejercicio
+
+Modificar otro registro con un **id** ya existente.
+
+Una vez ejecutamos y modificamos el registro de la BD, comentamos la línea que ejecuta el método PUT para que no se vuelva a ejecutar.
+
+# Método DELETE
+
+Debajo del método PUT ponemos este código:
+
+``` javascript
+const eliminarRecurso = async (id) => {
+  try {
+    const respuesta = await axios.delete(`${apiUrl}/recurso/${id}`);
+    console.log('Recurso eliminado con éxito:', respuesta.data);
+  } catch (error) {
+    console.error('Error al eliminar el recurso:', error);
+  }
+}
+
+eliminarRecurso(4);
+```
+
+Verificamos el endpoint, y en la llamada de la función ponemos el objeto que queremos eliminar, recomiendo poner el id del ultimo elemento.
+
+Lo ejecutamos:
+
+![Alt text](./images/delete.png)
